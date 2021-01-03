@@ -1,14 +1,24 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <!-- <router-link to="/">首頁</router-link> | -->
+  <!-- <router-link to="/favorite">收藏</router-link> -->
+  <a href="/">首頁</a> |
+  <a href="/favorite">收藏</a>
+  <router-view :isLoading="isLoading" />
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+};
+</script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -26,5 +36,17 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
 }
 </style>
