@@ -79,7 +79,7 @@ export default {
         pageNum: 1,
       },
       perPage: 12,
-      localStorageFavor: JSON.parse(localStorage.getItem("favor")),
+      localStorageFavor: JSON.parse(localStorage.getItem("favor")) || {},
     };
   },
 
