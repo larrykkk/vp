@@ -92,7 +92,6 @@ export default {
     },
   },
   async created() {
-    console.log(process.env.VUE_APP_YOUTUBE_SECRETKEY);
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
 
