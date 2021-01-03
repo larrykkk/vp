@@ -1,6 +1,7 @@
 <template>
   <searchBar @search="search"></searchBar>
-  <section>
+  <div v-if="isLoading">loading...</div>
+  <section v-else>
     <ul v-if="result">
       <li
         v-for="({ id, contentDetails, snippet }, index) in result.items.slice(
@@ -17,22 +18,29 @@
               :alt="snippet.channelTitle"
             />
           </router-link>
-          <button class="favor" @click="favor(localStorageFavor[id], id)">
-            {{ localStorageFavor[id] ? "remove" : "like" }}
-          </button>
+
           <div class="duration">
             {{ convert_time(contentDetails.duration) }}
           </div>
         </div>
-        <div class="title">
-          {{
-            snippet.localized.title.length > 36
-              ? snippet.localized.title.slice(0, 36) + "..."
-              : snippet.localized.title
-          }}
-        </div>
-        <div class="description">
-          {{ snippet.localized.description.slice(0, 100) }}
+        <div id="details">
+          <div class="info-left">
+            <div class="title">
+              {{
+                snippet.localized.title.length > 36
+                  ? snippet.localized.title.slice(0, 36) + "..."
+                  : snippet.localized.title
+              }}
+            </div>
+            <div class="description">
+              {{ snippet.localized.description.slice(0, 100) }}
+            </div>
+          </div>
+          <div class="like">
+            <button class="favor" @click="favor(localStorageFavor[id], id)">
+              {{ localStorageFavor[id] ? "remove" : "like" }}
+            </button>
+          </div>
         </div>
       </li>
     </ul>
@@ -51,9 +59,7 @@
         next
       </button>
     </div>
-    <div v-else>
-      找不到結果。
-    </div>
+    <div v-else>找不到結果。</div>
   </section>
 </template>
 
@@ -66,6 +72,7 @@ export default {
   components: {
     searchBar,
   },
+  props: ["isLoading"],
   data() {
     return {
       result: null,
@@ -92,6 +99,7 @@ export default {
     },
   },
   async created() {
+    this.changeLoadingState(true);
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
 
@@ -101,6 +109,7 @@ export default {
     } else if (this.routerName === "Favorite") {
       await this.getFavorVideos();
     }
+    this.changeLoadingState(false);
   },
   methods: {
     async getVideos() {
@@ -190,6 +199,9 @@ export default {
         part: "snippet, contentDetails",
       });
     },
+    changeLoadingState(val) {
+      this.$emit("changeLoadingState", val);
+    },
   },
 };
 </script>
@@ -219,17 +231,22 @@ li {
   right: 0.2rem;
   font-weight: 500;
 }
+#details {
+  display: flex;
+}
+.info-left {
+}
+.like {
+  display: inline-block;
+}
 button.favor {
-  height: 25px;
-  border: 0px;
-  background-color: #222;
-  color: #fff;
-  position: absolute;
-  top: 0.2rem;
-  right: 0.1rem;
+  padding: 4px;
+  border: 2px solid #000;
+  border-radius: 5px;
 }
 .title {
   text-align: left;
+  padding-right: 1.5rem;
 }
 .description {
   font-size: 0.5rem;

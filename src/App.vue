@@ -2,8 +2,12 @@
   <!-- <router-link to="/">首頁</router-link> | -->
   <!-- <router-link to="/favorite">收藏</router-link> -->
   <a href="/">首頁</a> |
-  <a href="/favorite">收藏</a>
-  <router-view :isLoading="isLoading" />
+  <a href="/favorite">收藏列表</a>
+  <router-view
+    v-show="!isLoading"
+    :isLoading="isLoading"
+    @changeLoadingState="changeLoadingState"
+  />
 </template>
 
 <script>
@@ -12,6 +16,11 @@ export default {
     return {
       isLoading: false,
     };
+  },
+  methods: {
+    changeLoadingState(val) {
+      this.isLoading = val;
+    },
   },
 };
 </script>
