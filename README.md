@@ -1,6 +1,6 @@
-# video platform (youtube api) 
-某次面試之作業
-- [video platform (youtube api)](#video platform (youtube api))
+# video platform
+某次面試之作業，主要是用 youtube data api v3 做一個微型影音網站
+- [video platform](#video-platform)
   - [測驗內容](#測驗內容)
   - [請實作出 首頁、收藏頁、播放頁](#請實作出-首頁收藏頁播放頁)
     - [切版](#切版)
