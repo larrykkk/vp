@@ -1,13 +1,12 @@
 <template>
   <section class="search">
-    <h1>Mytube</h1>
-    <!-- <input
+    <input
       v-model="q"
       placeholder="搜尋"
       @keyup.enter="$emit('search', q)"
       type="text"
     />
-    <input type="button" value="搜尋" /> -->
+    <input type="button" value="搜尋" />
   </section>
 </template>
 
