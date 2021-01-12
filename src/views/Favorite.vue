@@ -5,11 +5,16 @@
 <script>
 import list from "@/components/list.vue";
 import youtube from "@/api.js";
+import useLocalStorageFavor from "@/compostion/useLocalStorageFavor.vue";
 
 export default {
   props: ["isLoading"],
   components: {
     list,
+  },
+  setup() {
+    const { localStorageFavor } = useLocalStorageFavor();
+    return { localStorageFavor };
   },
   data() {
     return {
@@ -27,19 +32,20 @@ export default {
   },
   async created() {
     this.changeLoadingState(true);
-    await this.getVideos();
+    await this.getFavorVideos();
     this.changeLoadingState(false);
   },
   methods: {
-    async getVideos() {
-      const res = await youtube.getPopularVideos(this.params);
-      if (!this.result) {
-        this.result = res.data;
-      } else {
-        this.result.items = [...this.result.items, ...res.data.items];
-      }
-
-      this.params.pageToken = res.data.nextPageToken;
+    async getFavorVideos() {
+      let id = Object.entries(this.localStorageFavor)
+        .filter((x) => x[1])
+        .map((x) => x[0])
+        .join();
+      const res = await youtube.getVideoById({
+        id,
+        part: "snippet,contentDetails",
+      });
+      this.result = res.data;
     },
     changeLoadingState(val) {
       this.$emit("changeLoadingState", val);
