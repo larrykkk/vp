@@ -135,6 +135,7 @@ button.favor {
   font-size: 0.5rem;
   text-align: left;
   color: #999;
+  overflow: hidden;
 }
 .pagination button {
   margin: 0px 2px;
