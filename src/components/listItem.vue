@@ -16,7 +16,7 @@
           {{
             snippet.localized.title.length > 36
               ? snippet.localized.title.slice(0, 36) + "..."
-              : snippet.localized.title
+              : snippet.localized.title.trim()
           }}
         </div>
         <div class="description">
@@ -115,6 +115,10 @@ export default {
 #details {
   display: flex;
 }
+.info-left {
+  display: inline-block;
+  width: 90%;
+}
 .like {
   display: inline-block;
 }
@@ -125,7 +129,7 @@ button.favor {
 }
 .title {
   text-align: left;
-  padding-right: 1.5rem;
+  /* padding-right: 1.5rem; */
 }
 .description {
   font-size: 0.5rem;
