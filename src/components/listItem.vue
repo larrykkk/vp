@@ -97,3 +97,42 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.cover {
+  display: inline-block;
+  position: relative;
+}
+.duration {
+  padding: 2px 4px;
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.2rem;
+  font-weight: 500;
+}
+#details {
+  display: flex;
+}
+.like {
+  display: inline-block;
+}
+button.favor {
+  padding: 4px;
+  border: 2px solid #000;
+  border-radius: 5px;
+}
+.title {
+  text-align: left;
+  padding-right: 1.5rem;
+}
+.description {
+  font-size: 0.5rem;
+  text-align: left;
+  color: #999;
+}
+.pagination button {
+  margin: 0px 2px;
+}
+</style>

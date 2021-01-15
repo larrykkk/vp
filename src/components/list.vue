@@ -13,6 +13,7 @@
       ></listItem>
     </li>
   </ul>
+  <div v-if="isLoading == false && items.length == 0">找不到相關的資料。</div>
 </template>
 
 <script>
@@ -69,41 +70,5 @@ li {
   display: flex;
   flex-direction: column;
   margin: 0px 8px 40px;
-}
-.cover {
-  display: inline-block;
-  position: relative;
-}
-.duration {
-  padding: 2px 4px;
-  background-color: #000;
-  color: #fff;
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.2rem;
-  font-weight: 500;
-}
-#details {
-  display: flex;
-}
-.like {
-  display: inline-block;
-}
-button.favor {
-  padding: 4px;
-  border: 2px solid #000;
-  border-radius: 5px;
-}
-.title {
-  text-align: left;
-  padding-right: 1.5rem;
-}
-.description {
-  font-size: 0.5rem;
-  text-align: left;
-  color: #999;
-}
-.pagination button {
-  margin: 0px 2px;
 }
 </style>
