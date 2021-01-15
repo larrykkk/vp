@@ -5,17 +5,21 @@
 <script>
 import list from "@/components/list.vue";
 import youtube from "@/api.js";
+import useVideoData from "@/compostion/useVideoData.vue";
 
 export default {
   props: ["isLoading"],
   components: {
     list,
   },
+  setup() {
+    const { videoData } = useVideoData();
+    return {
+      result: videoData,
+    };
+  },
   data() {
     return {
-      result: {
-        items: [],
-      },
       params: {
         part: "snippet,contentDetails",
         chart: "mostPopular",
@@ -30,7 +34,7 @@ export default {
     try {
       await this.getVideos();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       this.$router.push({ name: "Error" });
     }
     this.changeLoadingState(false);

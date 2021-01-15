@@ -7,13 +7,6 @@
       :isLoading="isLoading"
       @changeLoadingState="changeLoadingState"
     />
-    <!-- <div class="controls">
-      <button>+</button>
-      <button>-</button>
-      <button>play</button>
-      <router-link to="/"> <button>首頁</button> </router-link>
-      <router-link to="/favorite"><button>收藏列表</button></router-link>
-    </div> -->
   </div>
 </template>
 
@@ -34,9 +27,11 @@ export default {
     changeLoadingState(val) {
       this.isLoading = val;
     },
-    search() {
-      return youtube.searchVideos({
-        part: "snippet, contentDetails",
+    async search(q) {
+      await youtube.searchVideos({
+        q,
+        part: "snippet",
+        maxResults: 10,
       });
     },
   },
