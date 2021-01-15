@@ -27,7 +27,12 @@ export default {
   },
   async created() {
     this.changeLoadingState(true);
-    await this.getVideos();
+    try {
+      await this.getVideos();
+    } catch (error) {
+      console.log(error)
+      this.$router.push({ name: "Error" });
+    }
     this.changeLoadingState(false);
   },
   methods: {
