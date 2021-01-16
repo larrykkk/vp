@@ -1,9 +1,7 @@
 <template>
-  <h1>Mytube</h1>
-  <searchBar @search="search"></searchBar>
+  <Header @search="search"></Header>
   <div class="tv-container">
     <router-view
-      class="main"
       :isLoading="isLoading"
       @changeLoadingState="changeLoadingState"
     />
@@ -11,12 +9,11 @@
 </template>
 
 <script>
-import searchBar from "@/components/searchBar.vue";
-import youtube from "@/api.js";
+import Header from "@/components/header.vue";
 
 export default {
   components: {
-    searchBar,
+    Header,
   },
   data() {
     return {
@@ -26,13 +23,6 @@ export default {
   methods: {
     changeLoadingState(val) {
       this.isLoading = val;
-    },
-    async search(q) {
-      await youtube.searchVideos({
-        q,
-        part: "snippet",
-        maxResults: 10,
-      });
     },
   },
 };

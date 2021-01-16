@@ -19,7 +19,11 @@ const routes = [
         path: "/watch",
         name: "Watch",
         component: () => import("../views/Watch.vue"),
-        props: true,
+      },
+      {
+        path: "/search",
+        name: "Search",
+        component: () => import("../views/Search.vue"),
       },
     ],
   },
