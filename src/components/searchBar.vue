@@ -17,7 +17,9 @@ export default {
   setup(props, { emit }) {
     let q = "";
     function search(q) {
-      emit("search", q);
+      if (q) {
+        emit("search", q);
+      }
     }
 
     return {
