@@ -23,7 +23,7 @@ export default {
       params: {
         part: "snippet,contentDetails",
         chart: "mostPopular",
-        maxResults: 50,
+        maxResults: 12,
         regionCode: "TW",
         pageNum: 1,
       },

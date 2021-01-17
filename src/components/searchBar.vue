@@ -1,15 +1,14 @@
 <template>
-  <section>
-    <div class="searchbar-inner">
-      <input
-        v-model="q"
-        placeholder="搜尋"
-        @keyup.enter="search(q)"
-        type="text"
-      />
-      <button @click="search(q)">搜尋</button>
-    </div>
-  </section>
+  <div>
+    <input
+      v-model="q"
+      placeholder="搜尋"
+      @keyup.enter="search(q)"
+      type="text"
+      class="flex"
+    />
+    <button @click="search(q)">搜尋</button>
+  </div>
 </template>
 
 <script>
@@ -35,12 +34,11 @@ export default {
   margin-bottom: 30px;
 }
 
-.searchbar-inner {
-  flex: 0 1 728px;
+.flex {
+  flex: 1 0 auto;
 }
 
 input {
-  width: 600px;
   height: 24px;
 }
 button {

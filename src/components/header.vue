@@ -1,8 +1,10 @@
 <template>
   <div class="header">
-    <router-link to="/"><h1>Mytube</h1></router-link>
+    <router-link to="/" class="logo"
+      ><span class="title">Mytube</span></router-link
+    >
     <searchBar @search="search" class="searchbar"></searchBar>
-    <toolbar></toolbar>
+    <toolbar class="toolbar"></toolbar>
   </div>
 </template>
 
@@ -25,16 +27,57 @@ export default {
 
 <style scpoed>
 .header {
-    /* background: red; */
+  background-color: #fff;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px 20px;
 }
-h1 {
-  margin: 0px;
-}
+
 .searchbar {
   flex: 1;
 }
+
+.logo .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 600px) {
+  .logo .title {
+    font-size: 2rem;
+  }
+}
+
+/* .logo, */
+/* .searchbar,
+.toolbar {
+  flex: 1 0 auto;
+}
+.header {
+  
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
+}
+h1.title {
+  margin: 0;
+  font-size: 1rem;
+}
+@media only screen and (min-width: 600px) {
+  h1.title {
+    font-size: 2rem;
+  }
+}
+.searchbar {
+  flex: 1;
+  display: none;
+}
+@media only screen and (min-width: 600px) {
+  .searchbar {
+    display: block;
+  }
+} */
 </style>

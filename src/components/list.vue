@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li
-      v-for="({ id, contentDetails, snippet }, index) in getVariable(isLoading)"
+      v-for="({ id, contentDetails, snippet }, index) in items"
       :key="index"
       :style="{ width: '320px' }"
     >
@@ -10,6 +10,7 @@
         :id="id"
         :contentDetails="contentDetails"
         :snippet="snippet"
+        @changeFavor="$emit('changeFavor')"
       ></listItem>
     </li>
   </ul>
@@ -47,14 +48,6 @@ export default {
   methods: {
     handleResize() {
       this.windowWidth = window.innerWidth;
-    },
-    getVariable(isLoading) {
-      return isLoading
-        ? this.perPage
-        : this.items.slice(
-            (this.params.pageNum - 1) * this.perPage,
-            (this.params.pageNum - 1) * this.perPage + this.perPage
-          );
     },
   },
 };

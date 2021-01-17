@@ -1,6 +1,6 @@
 <template>
-  <skeleton v-if="isLoading"></skeleton>
-  <div v-else>
+  <!-- <skeleton v-if="isLoading"></skeleton> -->
+  <div>
     <div class="cover">
       <router-link :to="{ name: 'Watch', query: { id } }">
         <img :src="snippet.thumbnails.medium.url" :alt="snippet.channelTitle" />
@@ -33,17 +33,17 @@
 </template>
 
 <script>
-import skeleton from "@/components/skeleton.vue";
+// import skeleton from "@/components/skeleton.vue";
 import useLocalStorageFavor from "@/compostion/useLocalStorageFavor.vue";
 
 export default {
   props: ["isLoading", "id", "contentDetails", "snippet"],
   components: {
-    skeleton,
+    // skeleton,
   },
   setup() {
-    const { localStorageFavor } = useLocalStorageFavor();
-    return { localStorageFavor };
+    const { localStorageFavor, updateLocalFavor } = useLocalStorageFavor();
+    return { localStorageFavor, updateLocalFavor };
   },
   methods: {
     convert_time(duration) {
@@ -76,6 +76,7 @@ export default {
         .join(":");
     },
     async favor(isFavor, id) {
+      console.log(123);
       var favorList;
       if (localStorage.getItem("favor")) {
         favorList = JSON.parse(localStorage.getItem("favor"));
@@ -89,9 +90,14 @@ export default {
         : (favor = { ...favorList, [id]: 1 });
 
       localStorage.setItem("favor", JSON.stringify(favor));
-      this.localStorageFavor = JSON.parse(localStorage.getItem("favor"));
-      if (this.routerName === "Favorite") {
-        await this.getFavorVideos();
+      // this.localStorageFavor = ;
+      // this.(JSON.parse(localStorage.getItem("favor")));
+      this.updateLocalFavor();
+      console.log(this.localStorageFavor);
+      if (this.$route.name === "Favorite") {
+        // await this.getFavorVideos();
+        // console.log(123123);
+        this.$emit("changeFavor");
       }
     },
   },

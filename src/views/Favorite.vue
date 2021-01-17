@@ -1,5 +1,10 @@
 <template>
-  <list :isLoading="isLoading" :items="result.items" :params="params"></list>
+  <list
+    :isLoading="isLoading"
+    :items="result.items"
+    :params="params"
+    @changeFavor="getFavorVideos"
+  ></list>
 </template>
 
 <script>

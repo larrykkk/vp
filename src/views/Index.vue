@@ -51,7 +51,6 @@ li {
 
 <style>
 .tv-container {
-  /* border: 1px solid #000; */
   padding: 20px;
   display: flex;
   flex-direction: row;

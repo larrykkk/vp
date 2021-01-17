@@ -106,17 +106,4 @@
     ;
   }
 }
-
-
-/* 
- * Demo Stuff
- */
-
-body {
-  min-height:100vh;
-  background-color:#FFF;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
 </style>

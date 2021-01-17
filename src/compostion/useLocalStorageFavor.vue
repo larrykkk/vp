@@ -6,8 +6,16 @@ export default function useLocalStorageFavor() {
     JSON.parse(localStorage.getItem("favor")) || {}
   );
 
+  function updateLocalFavor() {
+    localStorageFavor.value = JSON.parse(localStorage.getItem("favor")) || {};
+    // console.log(val)
+    // localStorageFavor.value = val;
+    // console.log(localStorageFavor.value)
+  }
+
   return {
     localStorageFavor,
+    updateLocalFavor,
   };
 }
 </script>
