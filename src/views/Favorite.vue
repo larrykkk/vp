@@ -3,58 +3,66 @@
     :isLoading="isLoading"
     :items="result.items"
     :params="params"
-    @changeFavor="getFavorVideos"
+    :localStorageFavor="localStorageFavor"
+    @changeFavor="updateFavorData($event)"
   ></list>
 </template>
 
 <script>
 import list from "@/components/list.vue";
-import youtube from "@/api.js";
 import useLocalStorageFavor from "@/compostion/useLocalStorageFavor.vue";
+import { ref, onMounted } from "vue";
 
 export default {
+  name: "Favorite",
   props: ["isLoading"],
   components: {
     list,
   },
-  setup() {
-    const { localStorageFavor } = useLocalStorageFavor();
-    return { localStorageFavor };
-  },
-  data() {
+  setup(props, { emit }) {
+    const {
+      localStorageFavor,
+      updateLocalFavor,
+      getFavorVideos,
+      changeFavor,
+    } = useLocalStorageFavor();
+
+    let result = ref({
+      items: [],
+    });
+
+    let params = ref({
+      part: "snippet,contentDetails",
+      chart: "mostPopular",
+      maxResults: 50,
+      regionCode: "TW",
+      pageNum: 1,
+    });
+
+    function changeLoadingState(val) {
+      emit("changeLoadingState", val);
+    }
+
+    async function updateFavorData($event) {
+      const items = await changeFavor($event);
+      result.value.items = items;
+    }
+
+    onMounted(async () => {
+      changeLoadingState(true);
+      const res = await getFavorVideos();
+      result.value.items = res.data.items;
+      changeLoadingState(false);
+    });
+
     return {
-      result: {
-        items: [],
-      },
-      params: {
-        part: "snippet,contentDetails",
-        chart: "mostPopular",
-        maxResults: 50,
-        regionCode: "TW",
-        pageNum: 1,
-      },
+      result,
+      params,
+      localStorageFavor,
+      updateLocalFavor,
+      changeFavor,
+      updateFavorData,
     };
-  },
-  async created() {
-    this.changeLoadingState(true);
-    await this.getFavorVideos();
-    this.changeLoadingState(false);
-  },
-  methods: {
-    async getFavorVideos() {
-      let id = Object.entries(this.localStorageFavor)
-        .filter((x) => x[1])
-        .map((x) => x[0])
-        .join();
-      const res = await youtube.getVideoById({
-        id,
-        part: "snippet,contentDetails",
-      });
-      this.result = res.data;
-    },
-    changeLoadingState(val) {
-      this.$emit("changeLoadingState", val);
-    },
   },
 };
 </script>

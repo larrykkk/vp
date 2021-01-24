@@ -1,11 +1,18 @@
 <template>
-  <list :isLoading="isLoading" :items="result.items" :params="params"></list>
+  <list
+    :isLoading="isLoading"
+    :items="result.items"
+    :params="params"
+    :localStorageFavor="localStorageFavor"
+    @changeFavor="updateLocalFavor($event)"
+  ></list>
 </template>
 
 <script>
 import list from "@/components/list.vue";
 import youtube from "@/api.js";
 import useVideoData from "@/compostion/useVideoData.vue";
+import useLocalStorageFavor from "@/compostion/useLocalStorageFavor.vue";
 
 export default {
   props: ["isLoading"],
@@ -14,8 +21,12 @@ export default {
   },
   setup() {
     const { videoData } = useVideoData();
+    const { localStorageFavor, updateLocalFavor } = useLocalStorageFavor();
+
     return {
       result: videoData,
+      localStorageFavor,
+      updateLocalFavor,
     };
   },
   data() {

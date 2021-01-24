@@ -10,7 +10,8 @@
         :id="id"
         :contentDetails="contentDetails"
         :snippet="snippet"
-        @changeFavor="$emit('changeFavor')"
+        :localStorageFavor="localStorageFavor"
+        @changeFavor="$emit('changeFavor', $event)"
       ></listItem>
     </li>
   </ul>
@@ -25,7 +26,7 @@ export default {
   components: {
     listItem,
   },
-  props: ["isLoading", "items", "params"],
+  props: ["isLoading", "items", "params", "localStorageFavor"],
   data() {
     return {
       windowWidth: null,

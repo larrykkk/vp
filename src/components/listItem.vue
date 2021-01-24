@@ -1,5 +1,4 @@
 <template>
-  <!-- <skeleton v-if="isLoading"></skeleton> -->
   <div>
     <div class="cover">
       <router-link :to="{ name: 'Watch', query: { id } }">
@@ -24,7 +23,7 @@
         </div>
       </div>
       <div class="like">
-        <button class="favor" @click="favor(localStorageFavor[id], id)">
+        <button class="favor" @click="onFavorClick(localStorageFavor[id], id)">
           {{ localStorageFavor[id] ? "remove" : "like" }}
         </button>
       </div>
@@ -33,20 +32,10 @@
 </template>
 
 <script>
-// import skeleton from "@/components/skeleton.vue";
-import useLocalStorageFavor from "@/compostion/useLocalStorageFavor.vue";
-
 export default {
-  props: ["isLoading", "id", "contentDetails", "snippet"],
-  components: {
-    // skeleton,
-  },
-  setup() {
-    const { localStorageFavor, updateLocalFavor } = useLocalStorageFavor();
-    return { localStorageFavor, updateLocalFavor };
-  },
-  methods: {
-    convert_time(duration) {
+  props: ["isLoading", "id", "contentDetails", "snippet", "localStorageFavor"],
+  setup(props, { emit }) {
+    function convert_time(duration) {
       let duration_str = duration.slice(2);
       let str = ["H", "M", "S"];
       let res = [];
@@ -74,9 +63,9 @@ export default {
           }
         })
         .join(":");
-    },
-    async favor(isFavor, id) {
-      console.log(123);
+    }
+
+    function onFavorClick(isFavor, id) {
       var favorList;
       if (localStorage.getItem("favor")) {
         favorList = JSON.parse(localStorage.getItem("favor"));
@@ -89,17 +78,10 @@ export default {
         ? (favor = { ...favorList, [id]: 0 })
         : (favor = { ...favorList, [id]: 1 });
 
-      localStorage.setItem("favor", JSON.stringify(favor));
-      // this.localStorageFavor = ;
-      // this.(JSON.parse(localStorage.getItem("favor")));
-      this.updateLocalFavor();
-      console.log(this.localStorageFavor);
-      if (this.$route.name === "Favorite") {
-        // await this.getFavorVideos();
-        // console.log(123123);
-        this.$emit("changeFavor");
-      }
-    },
+      emit("changeFavor", favor);
+    }
+
+    return { convert_time, onFavorClick };
   },
 };
 </script>
