@@ -1,17 +1,22 @@
 <template>
   <div class="search-page">
     <div
-      v-for="({ snippet }, index) in result.items"
+      v-for="({ id, snippet }, index) in result.items"
       :key="index"
       class="search-item"
     >
-      <div class="left">
-        <img :src="snippet.thumbnails.default.url" :alt="snippet.description" />
-      </div>
-      <div class="right">
-        <div class="title">{{ snippet.title }}</div>
-        <div class="description">{{ snippet.description }}</div>
-      </div>
+      <router-link :to="{ name: 'Watch', query: { id: id.videoId } }">
+        <div class="left">
+          <img
+            :src="snippet.thumbnails.default.url"
+            :alt="snippet.description"
+          />
+        </div>
+        <div class="right">
+          <div class="title">{{ snippet.title }}</div>
+          <div class="description">{{ snippet.description }}</div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -74,13 +79,9 @@ export default {
   padding-left: 2rem;
   padding-right: 2rem;
 }
-.search-item {
+.search-item a {
   width: 100%;
   display: flex;
-}
-.search-item .left {
-}
-.search-item .right {
 }
 .title {
   text-align: left;
