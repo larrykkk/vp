@@ -1,61 +1,14 @@
 <template>
-  <!-- <router-link to="/">首頁</router-link> | -->
-  <!-- <router-link to="/favorite">收藏</router-link> -->
-  <a href="/">首頁</a> |
-  <a href="/favorite">收藏列表</a>
-  <router-view
-    v-show="!isLoading"
-    :isLoading="isLoading"
-    @changeLoadingState="changeLoadingState"
-  />
+  <router-view />
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
-  methods: {
-    changeLoadingState(val) {
-      this.isLoading = val;
-    },
-  },
-};
-</script>
-
 <style>
+@import "./assets/normalize.css";
 #app {
-  font-family: Roboto, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  width: 100%;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-a {
-  text-decoration: none;
-  color: #000;
-}
-ul {
+body {
   margin: 0;
-  padding: 0;
-}
-li {
-  list-style-type: none;
+  background-color: #f7f5f5;
 }
 </style>
